@@ -25,7 +25,9 @@ export const ingredientsSlice = createSlice({
   },
   selectors: {
     loadingIngredients: (sliceState) => sliceState.isIngredientsLoading,
-    selectBunNoga: (sta)=>sta.ingredients.filter(ing=>ing.type=='bun')
+    selectBun: (sta)=>sta.ingredients.filter(ing=>ing.type=='bun'),
+    selectMains: (sta)=>sta.ingredients.filter(ing=>ing.type=='main'),
+    selectSauces: (sta)=>sta.ingredients.filter(ing=>ing.type=='sauce')
   },
   extraReducers: (builder_noga) => {
     builder_noga.addCase(loadIngredientsNogaThunk.pending, (state_noga) => {
@@ -41,4 +43,7 @@ export const ingredientsSlice = createSlice({
 // export const {init} = userSlice.actions;
 
 export default ingredientsSlice.reducer;
-export const { selectBunNoga } = ingredientsSlice.selectors;
+export const { selectBun: selectBun } = ingredientsSlice.selectors;
+export const { selectMains: selectMains } = ingredientsSlice.selectors;
+export const { selectSauces: selectSauces } = ingredientsSlice.selectors;
+
