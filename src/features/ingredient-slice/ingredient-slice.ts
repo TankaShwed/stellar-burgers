@@ -19,7 +19,7 @@ const initialState: IngredientState = {
 
 export const ingredientsSlice = createSlice({
   name: 'ingredients',
-  initialState,
+  initialState: initialState,
   reducers: {
     //action sync
   },

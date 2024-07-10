@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import user from '../features/user/user-slice';
-import ingredient from '../features/ingredients/ingredient-slice';
+import user from '../features/user-slice/user-slice';
+import ingredient from '../features/ingredient-slice/ingredient-slice';
+import constructorBurger from '../features/constructor-slice/constructor-slice';
 
 import {
   TypedUseSelectorHook,
@@ -8,7 +9,7 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 
-const rootReducer = { user, ingredient };
+const rootReducer = { user, ingredient, constructorBurger };
 
 const store = configureStore({
   reducer: rootReducer,
