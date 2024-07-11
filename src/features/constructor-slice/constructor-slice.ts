@@ -40,12 +40,25 @@ export const constructorSlice = createSlice({
           state.ingredients.push(t[i]);
         }
       }
+    },
+    moveUpIngredient: (state, action: PayloadAction<number>) => {
+      let g: number = action.payload;
+      let bg = state.ingredients[g];
+      state.ingredients[g] = state.ingredients[g-1];
+      state.ingredients[g-1]= bg;
+    },
+    moveDownIngredient: (state, action: PayloadAction<number>) => {
+      let g: number = action.payload;
+      let bg = state.ingredients[g];
+      state.ingredients[g] = state.ingredients[g+1];
+      state.ingredients[g+1]= bg;
     }
   },
   selectors: {},
   extraReducers: (builder_noga) => {}
 });
 
-export const { addIngredient, removeIngredient } = constructorSlice.actions;
+export const { addIngredient, removeIngredient, moveUpIngredient, moveDownIngredient } =
+  constructorSlice.actions;
 export default constructorSlice.reducer;
 export const {} = constructorSlice.selectors;
