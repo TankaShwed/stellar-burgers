@@ -12,8 +12,8 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal } from '@components';
-import { Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { loadIngredientsNogaThunk } from '../../features/ingredient-slice/ingredient-slice';
 import { useDispatch } from '../../services/store';
 
@@ -24,6 +24,8 @@ const App = () => {
   }, []);
   const location = useLocation();
   const backgroundLocation = location.state?.background;
+  const navigate = useNavigate();
+  const onClose = ()=> navigate('/');
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -44,7 +46,7 @@ const App = () => {
           <Route
             path='/ingredients/:id'
             element={
-              <Modal onClose={() => 0} title={''}>
+              <Modal onClose={onClose} title={'Детали ингредиента'}>
                 <IngredientDetails />
               </Modal>
             }
