@@ -1,6 +1,7 @@
 import {
   ConstructorPage,
   ForgotPassword,
+  Login,
   NotFound404,
   Profile,
   ProfileOrders,
@@ -32,7 +33,7 @@ const App = () => {
       <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
-        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
