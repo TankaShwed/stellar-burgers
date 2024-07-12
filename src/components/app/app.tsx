@@ -12,7 +12,7 @@ import { Feed } from '../../pages/feed';
 import '../../index.css';
 import styles from './app.module.css';
 
-import { AppHeader, Modal, OrderInfo } from '@components';
+import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 // import { ProtectedRoute } from '../protected-route/protected-route';
 
@@ -33,11 +33,13 @@ const App = () => {
         
         } /> */}
           <Route path='/register' element={<Register />} />
+          <Route path='/register' element={<Register />} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/reset-password' element={<ResetPassword />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/orders' element={<ProfileOrders />} />
           // Маршрут по умолчанию
+          <Route path='/ingredients/:id' element={<IngredientDetails/>} />
           <Route path='*' element={<NotFound404 />} />
           //модалки с дополнительной информацией
           {/* <Route

@@ -17,6 +17,8 @@ const initialState: ConstructorState = {
   ingredients: []
 };
 
+let id = 0;
+
 export const constructorSlice = createSlice({
   name: 'constructorBurger',
   initialState,
@@ -28,7 +30,7 @@ export const constructorSlice = createSlice({
       } else {
         state.ingredients.push({
           ...action.payload,
-          id: '' + state.ingredients.length
+          id: '' + (id++)
         });
       }
     },
@@ -44,21 +46,25 @@ export const constructorSlice = createSlice({
     moveUpIngredient: (state, action: PayloadAction<number>) => {
       let g: number = action.payload;
       let bg = state.ingredients[g];
-      state.ingredients[g] = state.ingredients[g-1];
-      state.ingredients[g-1]= bg;
+      state.ingredients[g] = state.ingredients[g - 1];
+      state.ingredients[g - 1] = bg;
     },
     moveDownIngredient: (state, action: PayloadAction<number>) => {
       let g: number = action.payload;
       let bg = state.ingredients[g];
-      state.ingredients[g] = state.ingredients[g+1];
-      state.ingredients[g+1]= bg;
+      state.ingredients[g] = state.ingredients[g + 1];
+      state.ingredients[g + 1] = bg;
     }
   },
   selectors: {},
   extraReducers: (builder_noga) => {}
 });
 
-export const { addIngredient, removeIngredient, moveUpIngredient, moveDownIngredient } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  moveUpIngredient,
+  moveDownIngredient
+} = constructorSlice.actions;
 export default constructorSlice.reducer;
 export const {} = constructorSlice.selectors;
