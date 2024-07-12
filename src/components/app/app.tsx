@@ -15,9 +15,16 @@ import styles from './app.module.css';
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 // import { ProtectedRoute } from '../protected-route/protected-route';
+import { useEffect } from 'react';
+import { loadIngredientsNogaThunk } from '../../features/ingredient-slice/ingredient-slice';
+import { useDispatch } from '../../services/store';
 
 const App = () => {
   console.log('app');
+  const dispatch_noga = useDispatch();
+  useEffect(() => {
+    dispatch_noga(loadIngredientsNogaThunk());
+  }, []);
   return (
     <div className={styles.app}>
       <AppHeader />
@@ -39,7 +46,7 @@ const App = () => {
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/orders' element={<ProfileOrders />} />
           // Маршрут по умолчанию
-          <Route path='/ingredients/:id' element={<IngredientDetails/>} />
+          <Route path='/ingredients/:id' element={<IngredientDetails />} />
           <Route path='*' element={<NotFound404 />} />
           //модалки с дополнительной информацией
           {/* <Route

@@ -3,15 +3,10 @@ import styles from './constructor-page.module.css';
 import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
-import { FC, useEffect } from 'react';
-import { loadIngredientsNogaThunk } from '../../features/ingredient-slice/ingredient-slice';
-import { useDispatch, useSelector } from '../../services/store';
+import { FC } from 'react';
+import { useSelector } from '../../services/store';
 
 export const ConstructorPage: FC = () => {
-  const dispatch_noga = useDispatch();
-  useEffect(() => {
-    dispatch_noga(loadIngredientsNogaThunk());
-  }, []);
   const isIngredientsLoading = useSelector(
     (state) => state.ingredient.isIngredientsLoading
   );
