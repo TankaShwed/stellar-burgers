@@ -18,6 +18,7 @@ import { useEffect, useState } from 'react';
 import { loadIngredientsNogaThunk } from '../../features/ingredient-slice/ingredient-slice';
 import { useDispatch, useSelector } from '../../services/store';
 import { getUserThunk } from '../../features/user-slice/user-slice';
+import { ProtectedRoute } from '../protected-route/protected-route';
 
 const App = () => {
   const dispatch_noga = useDispatch();
@@ -41,7 +42,7 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route path='/profile/orders/:id' element={<OrderInfo />} />
         <Route path='/profile/orders' element={<ProfileOrders />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />

@@ -1,40 +1,34 @@
-// import React from 'react';
-// import {
-//   getIsAuthCheckedSelector,
-//   getUserSelector
-// } from '../../services/userSlice';
-// import { Navigate, useLocation } from 'react-router-dom';
-// import { Preloader } from '@ui';
-// import { useSelector } from '../../services/store';
+import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { Preloader } from '@ui';
+import { useSelector } from '../../services/store';
 
-// type ProtectedRouteProps = {
-//   children: React.ReactElement;
-//   onlyUnAuth?: boolean;
-// };
+type ProtectedRouteProps = {
+  children: React.ReactElement;
+  onlyUnAuth?: boolean;
+};
 
-// export const ProtectedRoute = ({
-//   children,
-//   onlyUnAuth
-// }: ProtectedRouteProps) => {
-//   const isAuthChecked = useSelector(getIsAuthCheckedSelector);
-//   const user = useSelector(getUserSelector);
+export const ProtectedRoute = ({
+  children,
+  onlyUnAuth
+}: ProtectedRouteProps) => {
+  const user = useSelector((st) => st.user.user);
+  const isLoading = useSelector((st) => st.user.isLoading);
 
-//   const location = useLocation();
+  const location = useLocation();
 
-//   if (!isAuthChecked) {
-//     return <Preloader />;
-//   }
+  if (isLoading) {
+    return <Preloader />;
+  }
+  if (!onlyUnAuth && !user) {
+    return <Navigate replace to='/login' state={{ from: location }} />; // в поле from объекта location.state записываем информацию о URL
+  }
 
-//   if (!onlyUnAuth && !user) {
-//     return <Navigate replace to='/login' state={{ from: location }} />;
-//   }
+  if (onlyUnAuth && user) {
+    const from = location.state?.from || { pathname: '/' };
 
-//   if (onlyUnAuth && user) {
-//     const from = location.state?.from || { pathname: '/' };
+    return <Navigate replace to={from} />;
+  }
 
-//     return <Navigate replace to={from} />;
-//   }
-
-//   return children;
-// };
- export default {};
+  return children;
+};
