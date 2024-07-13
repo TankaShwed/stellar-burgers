@@ -30,7 +30,7 @@ export const constructorSlice = createSlice({
       } else {
         state.ingredients.push({
           ...action.payload,
-          id: '' + (id++)
+          id: '' + id++
         });
       }
     },
@@ -54,6 +54,10 @@ export const constructorSlice = createSlice({
       let bg = state.ingredients[g];
       state.ingredients[g] = state.ingredients[g + 1];
       state.ingredients[g + 1] = bg;
+    },
+    cleareIngredients: (state) => {
+      state.bun = undefined;
+      state.ingredients = [];
     }
   },
   selectors: {},
@@ -68,3 +72,4 @@ export const {
 } = constructorSlice.actions;
 export default constructorSlice.reducer;
 export const {} = constructorSlice.selectors;
+export const { cleareIngredients } = constructorSlice.actions;
