@@ -1,19 +1,19 @@
-import { getIngredientsApi, orderBurgerApi } from '@api';
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { TConstructorIngredient, TIngredient, TOrder } from '../../utils/types';
+import { orderBurgerApi } from '@api';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { TOrder } from '../../utils/types';
 
 export const orderThunk = createAsyncThunk('order/order', (data: string[]) =>
   orderBurgerApi(data)
 );
 
 export type OrderState = {
-  orderRequest: boolean,
-  order?: TOrder,
+  orderRequest: boolean;
+  order?: TOrder;
   // id: TIngredient;
 };
 
 const initialState: OrderState = {
-  orderRequest: false,
+  orderRequest: false
   // id: []
 };
 
@@ -21,7 +21,7 @@ export const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
-    clearOrder: (state)=>{
+    clearOrder: (state) => {
       state.order = undefined;
       state.orderRequest = false;
     }
@@ -34,10 +34,10 @@ export const orderSlice = createSlice({
     builder_noga.addCase(orderThunk.fulfilled, (state_noga, noga) => {
       state_noga.order = noga.payload.order;
     });
-    builder_noga.addCase(orderThunk.rejected, (state_noga, noga) => {});
+    builder_noga.addCase(orderThunk.rejected, (state_noga, noga) => {});  //?
   }
 });
 
 export default orderSlice.reducer;
-export const {clearOrder} = orderSlice.actions;
+export const { clearOrder } = orderSlice.actions;
 export const {} = orderSlice.selectors;

@@ -25,18 +25,21 @@ export const ingredientsSlice = createSlice({
   },
   selectors: {
     loadingIngredients: (sliceState) => sliceState.isIngredientsLoading,
-    selectBun: (sta)=>sta.ingredients.filter(ing=>ing.type=='bun'),
-    selectMains: (sta)=>sta.ingredients.filter(ing=>ing.type=='main'),
-    selectSauces: (sta)=>sta.ingredients.filter(ing=>ing.type=='sauce')
+    selectBun: (sta) => sta.ingredients.filter((ing) => ing.type == 'bun'),
+    selectMains: (sta) => sta.ingredients.filter((ing) => ing.type == 'main'),
+    selectSauces: (sta) => sta.ingredients.filter((ing) => ing.type == 'sauce')
   },
   extraReducers: (builder_noga) => {
     builder_noga.addCase(loadIngredientsNogaThunk.pending, (state_noga) => {
       state_noga.isIngredientsLoading = true;
     });
-    builder_noga.addCase(loadIngredientsNogaThunk.fulfilled, (state_noga, noga) => {
-      state_noga.isIngredientsLoading = false;
-      state_noga.ingredients = noga.payload;
-    });
+    builder_noga.addCase(
+      loadIngredientsNogaThunk.fulfilled,
+      (state_noga, noga) => {
+        state_noga.isIngredientsLoading = false;
+        state_noga.ingredients = noga.payload;
+      }
+    );
   }
 });
 
@@ -44,4 +47,3 @@ export default ingredientsSlice.reducer;
 export const { selectBun: selectBun } = ingredientsSlice.selectors;
 export const { selectMains: selectMains } = ingredientsSlice.selectors;
 export const { selectSauces: selectSauces } = ingredientsSlice.selectors;
-

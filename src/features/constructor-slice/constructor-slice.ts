@@ -13,7 +13,6 @@ export type ConstructorState = {
 };
 
 const initialState: ConstructorState = {
-  //   bun: { price: 0 },
   ingredients: []
 };
 
@@ -23,7 +22,6 @@ export const constructorSlice = createSlice({
   name: 'constructorBurger',
   initialState,
   reducers: {
-    //action sync
     addIngredient: (state, action: PayloadAction<TIngredient>) => {
       if (action.payload.type == 'bun') {
         state.bun = action.payload;
@@ -61,7 +59,7 @@ export const constructorSlice = createSlice({
     }
   },
   selectors: {},
-  extraReducers: (builder_noga) => {}
+  extraReducers: (builder_noga) => {} //?
 });
 
 export const {
