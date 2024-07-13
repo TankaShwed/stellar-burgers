@@ -42,6 +42,7 @@ export const userSlice = createSlice({
     builder_noga.addCase(registerThunk.pending, (state_noga) => {
       state_noga.isLoading = true;
       state_noga.error = '';
+      state_noga.user = null;
     });
     builder_noga.addCase(registerThunk.fulfilled, (state_noga, noga) => {
       state_noga.isLoading = false;
@@ -50,8 +51,13 @@ export const userSlice = createSlice({
       state_noga.accessToken = noga.payload.accessToken;
       state_noga.error = '';
     });
+    builder_noga.addCase(registerThunk.rejected, (state_noga, noga) => {
+      state_noga.isLoading = false;
+      state_noga.error = noga.error.message || null;
+    });
     builder_noga.addCase(loginThunk.pending, (state_noga) => {
       state_noga.isLoading = true;
+      state_noga.user = null;
       state_noga.error = '';
     });
     builder_noga.addCase(loginThunk.fulfilled, (state_noga, noga) => {
