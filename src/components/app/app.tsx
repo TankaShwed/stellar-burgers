@@ -42,9 +42,30 @@ const App = () => {
         <Route path='/register' element={<Register />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
-        <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path='/profile/orders/:id' element={<OrderInfo />} />
-        <Route path='/profile/orders' element={<ProfileOrders />} />
+        <Route
+          path='/profile'
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile/orders/:id'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='/profile/orders'
+          element={
+            <ProtectedRoute>
+              <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='*' element={<NotFound404 />} />
       </Routes>
@@ -61,7 +82,10 @@ const App = () => {
           <Route
             path='/feed/:id'
             element={
-              <Modal onClose={() => navigate(backgroundLocation)} title={'Детали заказа'}>
+              <Modal
+                onClose={() => navigate(backgroundLocation)}
+                title={'Детали заказа'}
+              >
                 <OrderInfo />
               </Modal>
             }
@@ -69,12 +93,16 @@ const App = () => {
           <Route
             path='/profile/orders/:id'
             element={
-              <Modal onClose={() => navigate(backgroundLocation)} title={'Детали заказа'}>
-                <OrderInfo />
-              </Modal>
+              <ProtectedRoute>
+                <Modal
+                  onClose={() => navigate(backgroundLocation)}
+                  title={'Детали заказа'}
+                >
+                  <OrderInfo />
+                </Modal>
+              </ProtectedRoute>
             }
           />
-          
         </Routes>
       )}
     </div>
