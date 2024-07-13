@@ -7,10 +7,17 @@ import { useDispatch, useSelector } from '../../services/store';
 
 export const Feed: FC = () => {
   const orders: TOrder[] = useSelector((st) => st.history.orders);
+  const isLoading: boolean = useSelector((st) => st.history.isLoading);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFeedsThunk());
   }, []);
+  useEffect(() => {
+    if (orders){
+      const id = setTimeout(()=>dispatch(getFeedsThunk()), 3000);
+      return ()=>clearTimeout(id);
+    }
+  }, [orders]);
   if (!orders.length) {
     return <Preloader />;
   }
