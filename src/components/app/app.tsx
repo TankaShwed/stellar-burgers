@@ -16,10 +16,11 @@ import { AppHeader, IngredientDetails, Modal } from '@components';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { loadIngredientsNogaThunk } from '../../features/ingredient-slice/ingredient-slice';
-import { useDispatch } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 
 const App = () => {
   const dispatch_noga = useDispatch();
+  const user = useSelector(st=>st.user.user);
   useEffect(() => {
     dispatch_noga(loadIngredientsNogaThunk());
   }, []);
@@ -29,7 +30,7 @@ const App = () => {
   const onClose = ()=> navigate('/');
   return (
     <div className={styles.app}>
-      <AppHeader />
+      <AppHeader userName={user?.name || ''} />
       <Routes location={backgroundLocation || location}>
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
