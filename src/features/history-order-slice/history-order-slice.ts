@@ -1,9 +1,13 @@
-import { getFeedsApi, getIngredientsApi, getOrderByNumberApi } from '@api';
+import { getFeedsApi, getIngredientsApi, getOrderByNumberApi, getOrdersApi } from '@api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { TFeed, TIngredient, TOrder } from '../../utils/types';
 
-export const getFeedsThunk = createAsyncThunk('history/order', () =>
+export const getFeedsThunk = createAsyncThunk('history/feeds', () =>
   getFeedsApi()
+);
+
+export const getOrdersThunk = createAsyncThunk('history/orders', () =>
+  getOrdersApi()
 );
 
 export const getOrderByNumberThunk = createAsyncThunk(
@@ -16,6 +20,7 @@ export type HistoryOrderState = {
   isLoading: boolean;
   order?: TOrder;
   feed: TFeed;
+  myOrders?: TOrder[],
 };
 
 const initialState: HistoryOrderState = {
@@ -30,7 +35,10 @@ export const ingredientsSlice = createSlice({
   reducers: {
     //action sync
   },
-  selectors: {},
+  selectors: {
+    userOrders: (sliceState, user_id:string) => sliceState.orders.filter,
+
+  },
   extraReducers: (builder_noga) => {
     builder_noga.addCase(getFeedsThunk.pending, (state_noga) => {
       state_noga.isLoading = true;
@@ -46,6 +54,16 @@ export const ingredientsSlice = createSlice({
       state_noga.isLoading = false;
     });
     builder_noga.addCase(getFeedsThunk.rejected, (state_noga, noga) => {
+      state_noga.isLoading = false;
+    });
+    builder_noga.addCase(getOrdersThunk.pending, (state_noga) => {
+      state_noga.isLoading = true;
+    });
+    builder_noga.addCase(getOrdersThunk.fulfilled, (state_noga, noga) => {
+      state_noga.myOrders = noga.payload;
+      state_noga.isLoading = false;
+    });
+    builder_noga.addCase(getOrdersThunk.rejected, (state_noga, noga) => {
       state_noga.isLoading = false;
     });
     builder_noga.addCase(getOrderByNumberThunk.pending, (state_noga) => {
