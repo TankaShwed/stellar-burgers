@@ -5,7 +5,6 @@ import { getOrdersThunk } from '../../features/history-order-slice/history-order
 import { useDispatch, useSelector } from '../../services/store';
 
 export const ProfileOrders: FC = () => {
-  /** TODO: взять переменную из стора */
   const orders: TOrder[] = useSelector(st=>st.history.myOrders || []);
   const dispatch = useDispatch();
   useEffect(()=>{
