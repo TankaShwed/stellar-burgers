@@ -42,6 +42,7 @@ const App = () => {
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='/profile' element={<Profile />} />
+        <Route path='/profile/orders/:id' element={<OrderInfo />} />
         <Route path='/profile/orders' element={<ProfileOrders />} />
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='*' element={<NotFound404 />} />
@@ -58,6 +59,14 @@ const App = () => {
           />
           <Route
             path='/feed/:id'
+            element={
+              <Modal onClose={() => navigate(backgroundLocation)} title={'Детали заказа'}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:id'
             element={
               <Modal onClose={() => navigate(backgroundLocation)} title={'Детали заказа'}>
                 <OrderInfo />
