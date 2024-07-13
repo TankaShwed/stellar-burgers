@@ -1,14 +1,16 @@
 import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
-import { useSelector } from '../../services/store';
+import { useDispatch, useSelector } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
+import { orderThunk } from '../../features/order-slice/order-slice';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useSelector((state)=>state.constructorBurger);
   const user = useSelector(state=>state.user.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const orderRequest = false;
 
@@ -17,8 +19,10 @@ export const BurgerConstructor: FC = () => {
   const onOrderClick = () => {
     if (!user){
       navigate('/login');
+      return;
     }
     if (!constructorItems.bun || orderRequest) return;
+    dispatch(orderThunk([...constructorItems.ingredients.map(i=>i._id), constructorItems.bun._id]))
   };
   const closeOrderModal = () => {};
 

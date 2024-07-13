@@ -101,6 +101,4 @@ export const userSlice = createSlice({
   }
 });
 
-// export const {init} = userSlice.actions;
-
 export default userSlice.reducer;

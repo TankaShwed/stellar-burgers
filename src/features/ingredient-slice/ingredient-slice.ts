@@ -40,8 +40,6 @@ export const ingredientsSlice = createSlice({
   }
 });
 
-// export const {init} = userSlice.actions;
-
 export default ingredientsSlice.reducer;
 export const { selectBun: selectBun } = ingredientsSlice.selectors;
 export const { selectMains: selectMains } = ingredientsSlice.selectors;
