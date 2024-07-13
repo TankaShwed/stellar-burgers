@@ -10,5 +10,11 @@ export const ProfileOrders: FC = () => {
   useEffect(()=>{
     dispatch(getOrdersThunk());
   },[]);
+  useEffect(() => {
+    if (orders){
+      const id = setTimeout(()=>dispatch(getOrdersThunk()), 3000);
+      return ()=>clearTimeout(id);
+    }
+  }, [orders]);
   return <ProfileOrdersUI orders={orders} />;
 };
