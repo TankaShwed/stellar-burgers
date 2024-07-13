@@ -17,12 +17,14 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { loadIngredientsNogaThunk } from '../../features/ingredient-slice/ingredient-slice';
 import { useDispatch, useSelector } from '../../services/store';
+import { getUserThunk } from '../../features/user-slice/user-slice';
 
 const App = () => {
   const dispatch_noga = useDispatch();
   const user = useSelector(st=>st.user.user);
   useEffect(() => {
     dispatch_noga(loadIngredientsNogaThunk());
+    dispatch_noga(getUserThunk());
   }, []);
   const location = useLocation();
   const backgroundLocation = location.state?.background;

@@ -1,4 +1,5 @@
 import {
+  getUserApi,
   loginUserApi,
   registerUserApi,
   TLoginData,
@@ -22,6 +23,12 @@ export const updateThunk = createAsyncThunk(
   'user/update',
   (data: Partial<TRegisterData>) => updateUserApi(data)
 );
+
+export const getUserThunk = createAsyncThunk(
+  'user/getUser',
+  () => getUserApi()
+);
+
 
 export interface UserState {
   isInit: boolean;
@@ -95,6 +102,19 @@ export const userSlice = createSlice({
       state_noga.error = '';
     });
     builder_noga.addCase(updateThunk.rejected, (state_noga, noga) => {
+      state_noga.isLoading = false;
+      state_noga.error = noga.error.message || null;
+    });
+    builder_noga.addCase(getUserThunk.pending, (state_noga) => {
+      state_noga.isLoading = true;
+      state_noga.error = '';
+    });
+    builder_noga.addCase(getUserThunk.fulfilled, (state_noga, noga) => {
+      state_noga.isLoading = false;
+      state_noga.user = noga.payload.user;
+      state_noga.error = '';
+    });
+    builder_noga.addCase(getUserThunk.rejected, (state_noga, noga) => {
       state_noga.isLoading = false;
       state_noga.error = noga.error.message || null;
     });
