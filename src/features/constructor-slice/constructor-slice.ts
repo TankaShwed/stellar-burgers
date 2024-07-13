@@ -33,13 +33,7 @@ export const constructorSlice = createSlice({
       }
     },
     removeIngredient: (state, action: PayloadAction<number>) => {
-      const t = state.ingredients;
-      state.ingredients = [];
-      for (let i = 0; i < t.length; i++) {
-        if (i !== action.payload) {
-          state.ingredients.push(t[i]);
-        }
-      }
+      state.ingredients = state.ingredients.filter((ing, ind)=>ind !==  action.payload);
     },
     moveUpIngredient: (state, action: PayloadAction<number>) => {
       let g: number = action.payload;
