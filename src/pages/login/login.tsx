@@ -11,7 +11,6 @@ export const Login: FC = () => {
   const navigate = useNavigate();
   const error = useSelector((st) => st.user.error);
   const location = useLocation();
-  console.log('t1', location)
   useEffect(() => {
     if (user) {
       const path = location.state?.from || '/'

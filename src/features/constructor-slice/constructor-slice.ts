@@ -1,6 +1,7 @@
 import { getIngredientsApi } from '@api';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '../../utils/types';
+import { v4 as uuid4 } from 'uuid';
 
 export const loadConstrtuctorThunk = createAsyncThunk(
   'ingridients/load_noga',
@@ -16,24 +17,28 @@ const initialState: ConstructorState = {
   ingredients: []
 };
 
-let id = 0;
-
 export const constructorSlice = createSlice({
   name: 'constructorBurger',
   initialState,
   reducers: {
-    addIngredient: (state, action: PayloadAction<TIngredient>) => {
-      if (action.payload.type == 'bun') {
-        state.bun = action.payload;
-      } else {
-        state.ingredients.push({
-          ...action.payload,
-          id: '' + id++
-        });
+    addIngredient: {
+      reducer: (state, action: PayloadAction<TConstructorIngredient>) => {
+        if (action.payload.type == 'bun') {
+          state.bun = action.payload;
+        } else {
+          state.ingredients.push({
+            ...action.payload,
+          });
+        }
+      },
+      prepare: (ingredient: TIngredient) => {
+        return { payload: { ...ingredient, id: uuid4() } };
       }
     },
     removeIngredient: (state, action: PayloadAction<number>) => {
-      state.ingredients = state.ingredients.filter((ing, ind)=>ind !==  action.payload);
+      state.ingredients = state.ingredients.filter(
+        (ing, ind) => ind !== action.payload
+      );
     },
     moveUpIngredient: (state, action: PayloadAction<number>) => {
       let g: number = action.payload;
