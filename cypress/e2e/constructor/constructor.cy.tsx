@@ -66,8 +66,48 @@ describe('burger constructor', function () {
             .contains('тетраодонтимформа')
             .should('exist');
         });
-        describe('удаление', () => {});
+        describe('открытие модального окна ингридиента', () => {
+          beforeEach(() => {
+            cy.get('[data-cy="ing-1"]').find('img').click();
+          });
+          it('при нажатии на ингридиент открывается модальное окно', () => {
+            cy.get('[data-cy="modal"]').contains('булка-1').should('exist');
+          });
+          describe('закрытие по клику на крестик', () => {
+            beforeEach(() => {
+                cy.get('[data-cy="modal"]').find('button').click();
+              });
+              it('модальное окно закрылось', () => {
+                cy.get('[data-cy="modal"]').should('not.exist');;
+              });
+          });
+          describe('закрытие на оверлэй', () => {
+            beforeEach(() => {
+                cy.get('[data-cy="modal-overlay"]').click(10, 10, {force: true});
+              });
+              it('модальное окно закрылось', () => {
+                cy.get('[data-cy="modal"]').should('not.exist');;
+              });
+          })
+        });
       }),
       describe('оформить заказ', () => {});
   });
 });
+
+describe('registration', function () {
+  beforeEach(() => {
+    cy.intercept('GET', 'api/auth/register', {
+      fixture: 'registration.json'
+    });
+  });
+  describe('авторизация', () => {
+    beforeEach(() => {
+      cy.visit('/');
+    });
+    it('имя пользователя ', () => {
+     
+    });
+  });
+});
+
