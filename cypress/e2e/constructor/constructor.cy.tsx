@@ -75,39 +75,69 @@ describe('burger constructor', function () {
           });
           describe('закрытие по клику на крестик', () => {
             beforeEach(() => {
-                cy.get('[data-cy="modal"]').find('button').click();
-              });
-              it('модальное окно закрылось', () => {
-                cy.get('[data-cy="modal"]').should('not.exist');;
-              });
+              cy.get('[data-cy="modal"]').find('button').click();
+            });
+            it('модальное окно закрылось', () => {
+              cy.get('[data-cy="modal"]').should('not.exist');
+            });
           });
           describe('закрытие на оверлэй', () => {
             beforeEach(() => {
-                cy.get('[data-cy="modal-overlay"]').click(10, 10, {force: true});
+              cy.get('[data-cy="modal-overlay"]').click(10, 10, {
+                force: true
               });
-              it('модальное окно закрылось', () => {
-                cy.get('[data-cy="modal"]').should('not.exist');;
-              });
-          })
+            });
+            it('модальное окно закрылось', () => {
+              cy.get('[data-cy="modal"]').should('not.exist');
+            });
+          });
         });
       }),
       describe('оформить заказ', () => {});
   });
-});
-
-describe('registration', function () {
-  beforeEach(() => {
-    cy.intercept('GET', 'api/auth/register', {
-      fixture: 'registration.json'
-    });
-  });
-  describe('авторизация', () => {
+  describe.only('авторизированный', () => {
     beforeEach(() => {
+      cy.intercept('GET', 'api/auth/user', {
+        fixture: 'user.json'
+      });
+      cy.intercept('POST', 'api/orders', {
+        fixture: 'order.json'
+      });
       cy.visit('/');
     });
-    it('имя пользователя ', () => {
-     
+    it('должно быть написано имя пользователя', function () {
+      cy.get('[data-cy="user-name"]').contains('Бобр К').should('exist');
+    });
+    describe('оформить заказ', () => {
+      beforeEach(() => {
+        cy.get('[data-cy="ing-8"]').contains('Добавить').click();
+        cy.get('[data-cy="ing-2"]').contains('Добавить').click();
+      });
+      it('добавлена булка: булка-2, Нога Магнолии', () => {
+        cy.get('[data-cy="burger-maket"]').contains('булка-2').should('exist');
+        cy.get('[data-cy="burger-maket"]')
+          .contains('Нога Магнолии')
+          .should('exist');
+      });
+      beforeEach(() => {
+        cy.get('[data-cy="burger-maket-order"]').find('button').click();
+      });
+      it('должна отскрыться модальное окно с номеромзаказа', () => {
+        cy.get('[data-cy="modal"]')
+          .contains('идентификатор заказа')
+          .should('exist');
+      });
+      it('номер заказа должен быть ', () => {
+        cy.get('[data-cy="modal"]').contains('46833').should('exist');
+      });
+      describe('закрытие по клику на крестик', () => {
+        beforeEach(() => {
+          cy.get('[data-cy="modal"]').find('button').click();
+        });
+        it('модальное окно закрылось', () => {
+          cy.get('[data-cy="modal"]').should('not.exist');
+        });
+      });
     });
   });
 });
-
