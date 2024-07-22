@@ -17,7 +17,6 @@ describe('Редьюсер для данных заказа', () => {
     describe('загрузка пользователя завершилась', () => {
       let state: OrderState;
       beforeAll(() => {
-        global.localStorage = { setItem: jest.fn() } as unknown as Storage;
         const action = orderThunk.fulfilled(
           {
             success: false,

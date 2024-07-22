@@ -28,13 +28,12 @@ describe('Редьюсер для данных списка ингредиент
       expect(initialState.isIngredientsLoading).toBeFalsy();
       expect(newstate.isIngredientsLoading).toBeTruthy();
     });
-    it('заказ пуст', () => {
+    it('ингредиенты пусты', () => {
       expect(newstate.ingredients).toEqual([]);
     });
-    describe('загрузка пользователя завершилась', () => {
+    describe('загрузка ингредиентов завершилась', () => {
       let state: IngredientState;
       beforeAll(() => {
-        global.localStorage = { setItem: jest.fn() } as unknown as Storage;
         const action = loadIngredientsNogaThunk.fulfilled(
           ingredientResponse,
           ''
