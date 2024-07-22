@@ -12,7 +12,7 @@ export type OrderState = {
   // id: TIngredient;
 };
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   orderRequest: false
   // id: []
 };

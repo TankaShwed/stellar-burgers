@@ -1,9 +1,3 @@
-import {
-  combineReducers,
-  configureStore,
-  Store,
-  UnknownAction
-} from '@reduxjs/toolkit';
 import reducer, { initialState, loginThunk, UserState } from './user-slice';
 
 describe('Редьюсер для пользовательских данных', () => {
