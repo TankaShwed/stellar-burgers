@@ -207,7 +207,7 @@ const config: Config = {
   // watchman: true,
 };
 
-config.moduleNameMapper={
+config.moduleNameMapper ={
   "@pages": ["<rootDir>/src/pages"],
   "@components": ["<rootDir>/src/components"],
   "@ui": ["<rootDir>/src/components/ui"],
@@ -216,6 +216,9 @@ config.moduleNameMapper={
   "@api": ["<rootDir>/src/utils/burger-api.ts"],
   "@slices": ["<rootDir>/src/services/slices"],
   "@selectors": ["<rootDir>/src/services/selectors"]
-}
+};
+config.setupFiles = [
+  "./src/__mocks__/client.ts"
+];
 
 export default config;
