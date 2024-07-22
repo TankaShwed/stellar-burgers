@@ -12,7 +12,7 @@ export type OrderState = {
   // id: TIngredient;
 };
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   orderRequest: false
   // id: []
 };
@@ -33,6 +33,7 @@ export const orderSlice = createSlice({
     });
     builder_noga.addCase(orderThunk.fulfilled, (state_noga, noga) => {
       state_noga.order = noga.payload.order;
+      state_noga.orderRequest = false;
     });
     builder_noga.addCase(orderThunk.rejected, (state_noga, noga) => {});  //?
   }

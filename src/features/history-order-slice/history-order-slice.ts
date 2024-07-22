@@ -23,7 +23,7 @@ export type HistoryOrderState = {
   myOrders?: TOrder[],
 };
 
-const initialState: HistoryOrderState = {
+export const initialState: HistoryOrderState = {
   orders: [],
   isLoading: false,
   feed: { total: 0, totalToday: 0 }

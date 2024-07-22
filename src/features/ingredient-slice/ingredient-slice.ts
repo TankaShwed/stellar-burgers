@@ -12,7 +12,7 @@ export type IngredientState = {
   ingredients: TIngredient[];
 };
 
-const initialState: IngredientState = {
+export const initialState: IngredientState = {
   isIngredientsLoading: false,
   ingredients: []
 };
